@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dependencies", "Dependencies\Dependencies.csproj", "{44366EDA-DEF8-4E86-A407-ADEE5B6DEFE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiApp", "UiApp\UiApp.csproj", "{8916F65D-DAD6-403B-BE02-44B4B87C4543}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44366EDA-DEF8-4E86-A407-ADEE5B6DEFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44366EDA-DEF8-4E86-A407-ADEE5B6DEFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44366EDA-DEF8-4E86-A407-ADEE5B6DEFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44366EDA-DEF8-4E86-A407-ADEE5B6DEFE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8916F65D-DAD6-403B-BE02-44B4B87C4543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8916F65D-DAD6-403B-BE02-44B4B87C4543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8916F65D-DAD6-403B-BE02-44B4B87C4543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8916F65D-DAD6-403B-BE02-44B4B87C4543}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
