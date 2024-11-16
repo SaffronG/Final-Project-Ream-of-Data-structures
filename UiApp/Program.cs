@@ -1,10 +1,7 @@
-﻿using Dependencies;
+﻿using Dependencies.Dungeon;
 
-GelatinousCube cubert = new();
-Zombie zomboid = new();
+var tombOfAnihilation = new DungeonLayout(new Empty(2), new Treasure(3, "Sword"), new Trap(4, TrapType.Flame));
 
-Console.WriteLine(cubert.Display());
-Console.WriteLine(cubert.DealDamage());
-Console.WriteLine("----");
-Console.WriteLine(zomboid.Display());
-Console.WriteLine(zomboid.DealDamage());
+Console.WriteLine("-----");
+
+tombOfAnihilation.DBGHallways();

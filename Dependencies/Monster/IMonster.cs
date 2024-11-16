@@ -1,6 +1,5 @@
-using System.Runtime.CompilerServices;
+namespace Dependencies.Monster;
 
-namespace Dependencies;
 
 public interface IMonster {
     public int Hp { get; set; }

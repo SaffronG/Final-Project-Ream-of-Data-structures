@@ -1,4 +1,4 @@
-namespace Dependencies;
+namespace Dependencies.Monster;
 
 public class Zombie : IMonster
 {
