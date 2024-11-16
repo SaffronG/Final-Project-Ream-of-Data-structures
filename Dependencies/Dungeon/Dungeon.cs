@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Dependencies.Dungeon;
+﻿namespace Dependencies.Dungeon;
 
 public class DungeonLayout
 {
@@ -9,9 +7,9 @@ public class DungeonLayout
     public ushort[,] Hallways { get; set; }
     public DungeonLayout(params IRoom[] rooms) {
         Layout[new Entrance()] = 1;
-        for (int i = 2; i < rooms.Length; i++) Layout[rooms[i]] = i;
+        for (int i = 2; i < rooms.Length+2; i++) Layout[rooms[i-2]] = i;
         Layout[new Exit(Layout.Count+1)] = Layout.Count+1;
-        Hallways = new ushort[rooms.Length,rooms.Length];
+        Hallways = new ushort[rooms.Length+2,rooms.Length+2];
         CreateHallways();
     }
 
@@ -19,21 +17,25 @@ public class DungeonLayout
         Stack<int> visited = new();
         visited.Push(1);
         var rand = new Random();
-        while (visited.Count < Layout.Count) {
+        while (visited.Count < Layout.Count-1) {
             int randIndex = rand.Next(2,Layout.Count);
             if (visited.Contains(randIndex)) continue;
-            Hallways[visited.Last(), randIndex] = 1;
-            visited.Push(randIndex);
+            else {
+                var lastRoom = visited.Pop();
+                Hallways[lastRoom-1, randIndex] = 1;
+                visited.Push(lastRoom);
+                visited.Push(randIndex);
+            }
         }
     }
 
     public void DBGHallways() {
-        for (int i = 0; i < Hallways.GetLength(0); i++) {
-            for (int j = 0; j < Hallways.GetLength(1); j++) {
-                if (j % Hallways.GetLength(1) == 1)
-                    Console.WriteLine(Hallways[i,j]);
+        for (int i = 1; i < Hallways.GetLength(0)+1; i++) {
+            for (int j = 1; j < Hallways.GetLength(1)+1; j++) {
+                if (j % Hallways.GetLength(0) + 1 == 1)
+                    Console.WriteLine(Hallways[j-1,i-1]);
                 else
-                    Console.Write(Hallways[i,j]);
+                    Console.Write(Hallways[j-1,i-1]);
             }
         }
     }
