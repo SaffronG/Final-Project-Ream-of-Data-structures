@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Dependencies.Dungeon;
+﻿namespace Dependencies.Dungeon;
 
 public class DungeonLayout
 {
