@@ -5,8 +5,8 @@ A simple console-based adventure game that implements many of the data structure
 
 # Milestones
 > First Milestone
-- [ ] Create dungeon rooms
-- [ ] Make a graph structure to store the rooms and make it so the rooms can be linked in random order
+- [X] Create dungeon rooms
+- [X] Make a graph structure to store the rooms and make it so the rooms can be linked in random order
 - [ ] Create challenges
 - [ ] Create a binary tree and store the challenges in them
 
