@@ -1,4 +1,6 @@
-﻿namespace Dependencies.Dungeon;
+﻿using System.Runtime.InteropServices;
+
+namespace Dependencies.Dungeon;
 
 public class DungeonLayout
 {
@@ -23,6 +25,7 @@ public class DungeonLayout
             else {
                 var lastRoom = visited.Pop();
                 Hallways[lastRoom-1, randIndex] = 1;
+                Hallways[randIndex, lastRoom-1] = 1;
                 visited.Push(lastRoom);
                 visited.Push(randIndex);
             }

@@ -7,5 +7,5 @@ public class Trap(int Id, TrapType TrapType) : IRoom
     public TrapType TrapType { get; set; } = TrapType;
     public string Description { get; set; } = "You enter the room and hear a sickening click as a ";
 
-    public string Display() => Description + TrapType + "triggers!";
+    public string Display() => Description + TrapType + " trap triggers!";
 }
