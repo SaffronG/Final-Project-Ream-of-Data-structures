@@ -6,4 +6,5 @@ public interface IRoom
     public Monster.IMonster? Enemy { get; set; }
     public string Description { get; set; }
     public abstract string Display();
+    public bool ContainsPlayer { get; set; }
 }

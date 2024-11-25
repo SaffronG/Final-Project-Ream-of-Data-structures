@@ -30,13 +30,18 @@ public class DungeonLayout
         }
     }
 
-    public void DBGHallways() {
+    private void Traverse()
+    {
+        
+    }
+
+    public void dbg() {
         for (int i = 1; i < Hallways.GetLength(0)+1; i++) {
             for (int j = 1; j < Hallways.GetLength(1)+1; j++) {
                 if (j % Hallways.GetLength(0) + 1 == 1)
-                    Console.WriteLine(Hallways[j-1,i-1]);
+                    Console.WriteLine(Hallways[j-1,i-1] + "\n");
                 else
-                    Console.Write(Hallways[j-1,i-1]);
+                    Console.Write(Hallways[j-1,i-1] + " ");
             }
         }
     }
