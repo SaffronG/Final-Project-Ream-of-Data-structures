@@ -5,6 +5,7 @@ public class DungeonLayout
     // Stores the dungeon layout in the form of a graph using the adjacency matrix and dictionary method
     public Dictionary<IRoom, int> Layout { get; } = [];
     public ushort[,] Hallways { get; set; }
+
     public DungeonLayout(params IRoom[] rooms) {
         Layout[new Entrance()] = 1;
         for (int i = 2; i < rooms.Length+2; i++) Layout[rooms[i-2]] = i;
@@ -17,22 +18,55 @@ public class DungeonLayout
         Stack<int> visited = new();
         visited.Push(1);
         var rand = new Random();
-        while (visited.Count < Layout.Count-1) {
+        // Randomly create hallways between rooms until each room has two hallways
+        while (visited.Count < (Layout.Count * 2) - 1) {
             int randIndex = rand.Next(2,Layout.Count);
-            if (visited.Contains(randIndex)) continue;
-            else {
-                var lastRoom = visited.Pop();
-                Hallways[lastRoom-1, randIndex] = 1;
-                Hallways[randIndex, lastRoom-1] = 1;
-                visited.Push(lastRoom);
-                visited.Push(randIndex);
-            }
+            var lastRoom = visited.Pop();
+            Hallways[lastRoom-1, randIndex] = 1;
+            Hallways[randIndex, lastRoom-1] = 1;
+            visited.Push(lastRoom);
+            visited.Push(randIndex);
         }
     }
 
-    private void Traverse()
+    private int HallwayCount(Stack<int> hallways, int target) {
+        int count = 0;
+        foreach (var room in hallways) if (room == target) count++;
+        return count;
+    }
+
+    public void Traverse(ref ushort playerLocation)
     {
-        
+        List<ushort> availablePaths = [];
+        for (int i = 0; i < Hallways.GetLength(playerLocation-1); i++)
+            if (Hallways[playerLocation-1, i] != 0)
+                availablePaths.Add((ushort) i);
+        while(!TryTraverse(availablePaths, playerLocation, out playerLocation))
+        {
+            Console.WriteLine("That is not a valid room choice!");
+        }
+    }
+
+    private static bool TryTraverse(List<ushort> paths, int playerLocation, out ushort selection)
+    {
+        Console.Write($"You are in room {playerLocation} and it connects to room:");
+        foreach (var path in paths) Console.Write($" {path},");
+        Console.WriteLine("");
+        Console.Write("Where would you like to go? ");
+        try {
+            ushort input = ushort.Parse(Console.ReadLine()!);
+            if (paths.Contains(input))
+            {
+                selection = input;
+                return true;
+            }
+        }
+        catch {
+            selection = 0;
+            return false;
+        }
+        selection = 0;
+        return false;
     }
 
     public void dbg() {
