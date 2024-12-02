@@ -26,6 +26,11 @@ public class DungeonLayout
             Hallways[randIndex, lastRoom-1] = 1;
             visited.Push(lastRoom);
             visited.Push(randIndex);
+            if (visited.Count == Layout.Count * 2 -1)
+            {
+                Hallways[lastRoom - 1, 8] = 1;
+                Hallways[8, lastRoom - 1] = 1;
+            }
         }
     }
 
@@ -38,16 +43,14 @@ public class DungeonLayout
     public void Traverse(ref ushort playerLocation)
     {
         List<ushort> availablePaths = [];
-        for (int i = 0; i < Hallways.GetLength(playerLocation-1); i++)
+        for (ushort i = 0; i < (ushort) Hallways.GetLength(0); i++)
             if (Hallways[playerLocation-1, i] != 0)
-                availablePaths.Add((ushort) i);
+                availablePaths.Add((ushort) (i+1));
         while(!TryTraverse(availablePaths, playerLocation, out playerLocation))
-        {
             Console.WriteLine("That is not a valid room choice!");
-        }
     }
 
-    private static bool TryTraverse(List<ushort> paths, int playerLocation, out ushort selection)
+    private static bool TryTraverse(List<ushort> paths, ushort playerLocation, out ushort selection)
     {
         Console.Write($"You are in room {playerLocation} and it connects to room:");
         foreach (var path in paths) Console.Write($" {path},");
