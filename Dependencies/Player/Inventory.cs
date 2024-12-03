@@ -32,8 +32,12 @@ public class Inventory(int Max = 5) {
     }
     public string Display() {
         StringBuilder inventoryContents = new();
-        foreach (var item in Pouch)
-            inventoryContents.Append($"{item.Name}: {item.Description}\n");
+        Queue<IItem> temp = new();
+        for (int i = 0; i < Pouch.Count; i++) {
+            var node = Pouch.Dequeue();
+            inventoryContents.Append($"{i+1} -> {node.Name}: {node.Description}\n\n");
+            temp.Enqueue(node);
+        }
         return inventoryContents.ToString();
     }
 
