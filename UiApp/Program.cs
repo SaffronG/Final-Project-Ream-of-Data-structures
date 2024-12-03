@@ -4,7 +4,7 @@ using Dependencies.Monster;
 using UiApp;
 using System.ComponentModel;
 // SETUP GAME LOGIC
-
+AsciiArt art = new();
 IRoom[] rooms = [
     new Empty(2),
     new Treasure(3, "Sword"),
@@ -39,7 +39,7 @@ var ChallengeNode = TombOfAnihilation.Layout.ToArray();
 while (true)
 {
     Console.Clear();
-    Console.Write($"{TombOfAnihilation.Layout[CurrentPlayer.Location].Display()}\nWhat would you like to do?\n 1) Explore\n 2) Search the room\n 3) Use Item\n 4) Equip Weapons\n");
+    Console.Write($"{TombOfAnihilation.Layout[CurrentPlayer.Location].Display()}\n{art.DoorRoom}\nWhat would you like to do?\n 1) Explore\n 2) Search the room\n 3) Use Item\n 4) Sort inventory\n");
     TryGetChoice(out int input, 1, 2, 3, 4);
     UiHandler(input);
     if (CurrentPlayer.Location == 9)
@@ -72,7 +72,7 @@ void UiHandler(int input)
             Console.ReadKey(true);
             break;
         case 4:
-            Console.WriteLine("Equip Weapon");
+            Console.WriteLine("Sort Inventory");
             break;
         default:
             break;

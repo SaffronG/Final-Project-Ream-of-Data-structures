@@ -7,7 +7,7 @@ public class Inventory(int Max = 5) {
     public Queue<IItem> Pouch = new();
     public int Max = Max;
     public bool Add(IItem item) {
-        if (Pouch.Count + 1 >= Max) {
+        if (Pouch.Count >= Max) {
             Console.WriteLine("Oldest item was removed");
             Pouch.Dequeue();
         }
@@ -32,11 +32,8 @@ public class Inventory(int Max = 5) {
     }
     public string Display() {
         StringBuilder inventoryContents = new();
-        Queue<IItem> temp = new();
-        for (int i = 0; i < Pouch.Count; i++) {
-            var node = Pouch.Dequeue();
-            inventoryContents.Append($"{i+1} -> {node.Name}: {node.Description}\n\n");
-            temp.Enqueue(node);
+        foreach (var item in Pouch) {
+            inventoryContents.Append($"{item.Name}: {item.Description}\n\n");
         }
         return inventoryContents.ToString();
     }

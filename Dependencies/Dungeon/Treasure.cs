@@ -6,7 +6,7 @@ public class Treasure(int Id, string Reward) : IRoom
     public Monster.IMonster? Enemy { get; set; }
     public string Reward { get; set; } = Reward;
     public string Description { get; set; } = "The room is bare save for a small brown chest in the center of the room, you open it and find a";
+    public RoomType Type { get; } = RoomType.Treasure;
     public bool ContainsPlayer { get; set; } = false;
-
     public string Display() => Description + Reward;
 }
