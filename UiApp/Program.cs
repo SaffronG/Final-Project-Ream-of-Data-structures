@@ -1,18 +1,16 @@
 ﻿using Dependencies.Dungeon;
 using Dependencies.Player;
 using Dependencies.Monster;
-using UiApp;
-using System.ComponentModel;
 // SETUP GAME LOGIC
 AsciiArt art = new();
 IRoom[] rooms = [
     new Empty(2),
     new Treasure(3, "Sword"),
-    new Trap(4, TrapType.Flame),
+    new Trap(4, TrapType.Flame) { Enemy = new GelatinousCube() },
     new Trap(4, TrapType.Flame),
     new Treasure(3, "Sword"),
-    new Trap(4, TrapType.Flame),
-    new Treasure(3, "Sword")
+    new Trap(4, TrapType.Flame) { Enemy = new Zombie() },
+    new Empty(2),
     ];
 
 GameLoop:
@@ -20,29 +18,29 @@ Console.Clear();
 Console.Write("What is your name, brave hero? ");
 string name = Console.ReadLine()!;
 int confirm = 0;
-Console.WriteLine("Are you sure that is correct?  (Y for 1, N for 2)");
+Console.Write("Are you sure that is correct?  (Y for 1, N for 2) ");
 while (!TryGetChoice(out confirm, 1, 2) || confirm != 1)
 {
     Console.Write("Tell us your real name then: ");
     name = Console.ReadLine()!;
-    Console.WriteLine("Are you sure that is correct? (Y for 1, N for 2)");
+    Console.Write("Are you sure that is correct? (Y for 1, N for 2) ");
 }
-Console.Write("Would you like to enable Auto Play mode (This will choose the easiest path automatically)? (Y for 1, N for 2)");
+Console.Write("Would you like to enable Auto Play mode (This will choose the easiest path automatically)? (Y for 1, N for 2) ");
 while (!TryGetChoice(out confirm, 1, 2)) Console.Write("Invalid input, try again! ");
 bool autoPlay = confirm == 1;
 Console.WriteLine($"Very well then, we pray for your safe return {name}");
 
-Player CurrentPlayer = new(name, 10, 10, 10);
+Player CurrentPlayer = new(name, 10, 10, 10, .5f);
 var TombOfAnihilation = new DungeonLayout(rooms);
 var ChallengeNode = TombOfAnihilation.Layout.ToArray();
 // Main Loop
 while (true)
 {
     Console.Clear();
-    Console.Write($"{TombOfAnihilation.Layout[CurrentPlayer.Location].Display()}\n{art.DoorRoom}\nWhat would you like to do?\n 1) Explore\n 2) Search the room\n 3) Use Item\n 4) Sort inventory\n");
+    Console.Write($"{TombOfAnihilation.Layout[CurrentPlayer.Location].Display()}\n{(TombOfAnihilation.Layout[CurrentPlayer.Location].Enemy is null ? GetFrame(TombOfAnihilation.Layout[CurrentPlayer.Location].Type) : art.MonsterRoom)}\nWhat would you like to do?\n 1) Explore\n 2) Search the room\n 3) Use Item\n 4) Sort inventory\n");
     TryGetChoice(out int input, 1, 2, 3, 4);
     UiHandler(input);
-    if (CurrentPlayer.Location == 9)
+    if (CurrentPlayer.Location == rooms.Count()+2)
         break;
 }
 
@@ -97,3 +95,12 @@ bool TryGetChoice(out int choice, params int[] choices)
     choice = 0;
     return false;
 }
+
+string GetFrame(RoomType type) =>
+    type switch {
+        RoomType.Empty => art.EmptyHallway,
+        RoomType.Door => art.DoorRoom,
+        RoomType.Trap => art.TrapRoom,
+        RoomType.Treasure => art.DoorRoom,
+        _ => "ERROR: Room not found!"
+    };

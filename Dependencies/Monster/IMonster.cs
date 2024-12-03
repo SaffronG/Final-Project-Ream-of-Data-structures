@@ -1,6 +1,5 @@
 namespace Dependencies.Monster;
 
-
 public interface IMonster {
     public int Hp { get; set; }
     public float Accuracy { get; set; }

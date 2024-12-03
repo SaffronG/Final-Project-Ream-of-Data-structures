@@ -19,7 +19,7 @@ public class DungeonLayout
         visited.Push(1);
         var rand = new Random();
         // Randomly create hallways between rooms until each room has two hallways
-        while (visited.Count < (Layout.Count * 2) - 1) {
+        while (visited.Count < (Layout.Count * 1.5) - 1) {
             int randIndex = rand.Next(2,Layout.Count);
             var lastRoom = visited.Pop();
             Hallways[lastRoom-1, randIndex] = 1;
