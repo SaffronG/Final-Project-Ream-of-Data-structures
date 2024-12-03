@@ -3,13 +3,13 @@
 public class DungeonLayout
 {
     // Stores the dungeon layout in the form of a graph using the adjacency matrix and dictionary method
-    public Dictionary<IRoom, int> Layout { get; } = [];
+    public Dictionary<int, IRoom> Layout { get; } = [];
     public ushort[,] Hallways { get; set; }
 
     public DungeonLayout(params IRoom[] rooms) {
-        Layout[new Entrance()] = 1;
-        for (int i = 2; i < rooms.Length+2; i++) Layout[rooms[i-2]] = i;
-        Layout[new Exit(Layout.Count+1)] = Layout.Count+1;
+        Layout[1] = new Entrance();
+        for (int i = 2; i < rooms.Length+2; i++) Layout[i] = rooms[i-2];
+        Layout[Layout.Count+1] = new Exit(Layout.Count+1);
         Hallways = new ushort[rooms.Length+2,rooms.Length+2];
         CreateHallways();
     }
@@ -32,12 +32,6 @@ public class DungeonLayout
                 Hallways[8, lastRoom - 1] = 1;
             }
         }
-    }
-
-    private int HallwayCount(Stack<int> hallways, int target) {
-        int count = 0;
-        foreach (var room in hallways) if (room == target) count++;
-        return count;
     }
 
     public void Traverse(ref ushort playerLocation)
@@ -72,7 +66,7 @@ public class DungeonLayout
         return false;
     }
 
-    public void dbg() {
+    public void Dbg() {
         for (int i = 1; i < Hallways.GetLength(0)+1; i++) {
             for (int j = 1; j < Hallways.GetLength(1)+1; j++) {
                 if (j % Hallways.GetLength(0) + 1 == 1)
