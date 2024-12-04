@@ -20,6 +20,10 @@ A simple console-based adventure game that implements many of the data structure
 - [X] Create UI so the user can interact with the game
 - [X] Create a treasure room
 - [X] Create treasure types
-- [ ] ( EXTRA ) Add a final boss room
-- [ ] ( EXTRA ) Add a marathon mode to the game
 - [X] ( EXTRA ) Implement actual 2d graphics
+
+> Final Milestone
+- [ ] Add Trap Effects
+- [ ] Finish the Challenges Binary Tree Tree
+- [ ] Randomize Room creation, item population, and monster spawning
+- [ ] ( EXTRA ) Add a final boss room
