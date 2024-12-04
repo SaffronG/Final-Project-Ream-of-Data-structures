@@ -39,7 +39,7 @@ namespace Dependencies.Dungeon
             return false;
         }
 
-        public bool FindNext(int value, List<ushort> paths)
+        public int FindNext(int value, List<ushort> paths)
         {
             ChallengeNode? current = Head;
 
@@ -49,11 +49,11 @@ namespace Dependencies.Dungeon
                     current = current.Right;
                 else {
                     if (paths.Contains((ushort) current.ChallengeRating))
-                        return true;
+                        return current.ChallengeRating;
                     current = current.Left;
                 }
             }
-            return false;
+            return 0;
         }
     }
     public class ChallengeNode(int CR, ChallengeNode? Left = null, ChallengeNode? Right = null)

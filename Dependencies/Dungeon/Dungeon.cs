@@ -50,7 +50,7 @@ public class DungeonLayout
         for (ushort i = 0; i < (ushort) Hallways.GetLength(0); i++)
             if (Hallways[playerLocation-1, i] != 0)
                 availablePaths.Add((ushort) (i+1));
-        challenges.FindNext(playerLocation, availablePaths);
+        playerLocation = (ushort) challenges.FindNext(playerLocation, availablePaths);
     }
 
     private static bool TryTraverse(List<ushort> paths, ushort playerLocation, out ushort selection)
