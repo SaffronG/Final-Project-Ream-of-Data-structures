@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Text;
+using Dependencies.Monster;
+using OpenTK.Graphics.ES11;
 
 namespace Dependencies.Player;
 
@@ -24,21 +26,48 @@ public class Inventory(int Max = 5) {
         int i = 1;
         foreach (var item in Pouch) {
             if (i == index) return item;
+            i++;
         }
         return null;
     }
     public bool UseItem(ref Player player, string item) {
         Queue<IItem> tempPouch = new();
-        bool exists = false;
+        bool removed = false;
         foreach (var storedItem in Pouch) {
-            if (storedItem.Name == item && !exists) {
-                exists = true;
+            Console.WriteLine(storedItem.Name);
+            if (storedItem.Name == item && !removed) {
+                Console.WriteLine("Removed item");
                 storedItem.Effect(player);
+                removed = true;
             }
             else tempPouch.Enqueue(storedItem);
         }
         Pouch = tempPouch;
-        return exists;
+        return removed;
+    }
+    public bool EquipItem(ref Player player, string item) {
+        Queue<IItem> tempPouch = new();
+        bool removed = false;
+        foreach (var storedItem in Pouch) {
+            Console.WriteLine(storedItem.Name);
+            if (storedItem.Name == item && !removed) {
+                if (storedItem.Strength < 5) {
+                    Console.WriteLine("That isn't a viable weapon!");
+                    tempPouch.Enqueue(storedItem);
+                }
+                else {
+                    Console.WriteLine("Removed item");
+                    if (player.Weapon != null) {
+                        tempPouch.Enqueue(player.Weapon);
+                    }
+                    player.Weapon = storedItem;
+                    removed = true;
+                }
+            }
+            else tempPouch.Enqueue(storedItem);
+        }
+        Pouch = tempPouch;
+        return removed;
     }
     public string Display() {
         StringBuilder inventoryContents = new();

@@ -1,4 +1,6 @@
-﻿ namespace Dependencies.Player;
+﻿using Dependencies.Monster;
+
+namespace Dependencies.Player;
 
 public class HealthPotion : IItem
 {

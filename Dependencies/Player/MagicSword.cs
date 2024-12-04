@@ -1,4 +1,6 @@
-﻿namespace Dependencies.Player
+﻿using Dependencies.Monster;
+
+namespace Dependencies.Player
 {
     public class MagicSword : IItem
     {
@@ -8,7 +10,7 @@
 
         public void Effect(Player player)
         {
-            
+            Console.WriteLine("The edge of the blade glows blue and then fires a magic missile!\nThis is a powerful weapon!");
         }
     }
 }

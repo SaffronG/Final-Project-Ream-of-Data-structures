@@ -47,7 +47,7 @@ while (true)
         };
     if (CurrentPlayer.Location == rooms.Count()+2)
         break;
-    Console.WriteLine($"{CurrentPlayer.Name}- HP {CurrentPlayer.Health}");
+    Console.WriteLine($"({CurrentPlayer.Name}) HP <{CurrentPlayer.Health}>  Equipment <{(CurrentPlayer.Weapon == null ? "None" : CurrentPlayer.Weapon.Name)}>");
     Console.Write($"{TombOfAnihilation.Layout[CurrentPlayer.Location].Display()}\n{(TombOfAnihilation.Layout[CurrentPlayer.Location].Enemy is null || TombOfAnihilation.Layout[CurrentPlayer.Location].Enemy!.Hp > 0 ? GetFrame(TombOfAnihilation.Layout[CurrentPlayer.Location].Type) : art.MonsterRoom)}\nWhat would you like to do?\n 1) Explore\n 2) Search the room\n 3) Use Item\n 4) Equip Items\n");
     if (TombOfAnihilation.Layout[CurrentPlayer.Location].Treasure != null) {
 
@@ -85,7 +85,7 @@ void UiHandler(int input)
             Console.WriteLine(CurrentPlayer.Inventory.Display());
             int[] options = [1, 2, 3, 4, 5];
             int choice;
-            if (CurrentPlayer.Inventory.Pouch.Count() > 0) {
+            if (CurrentPlayer.Inventory.Pouch.Count > 0) {
                 while (!TryGetChoice(out choice, options[0..CurrentPlayer.Inventory.Pouch.Count]));
                 CurrentPlayer.Inventory.UseItem(ref CurrentPlayer, CurrentPlayer.Inventory.GetAt(choice)!.Name);
             }
@@ -95,7 +95,18 @@ void UiHandler(int input)
             Console.ReadKey(true);
             break;
         case 4:
-            Console.WriteLine("Equip Items");
+            Console.Clear();
+            Console.WriteLine(CurrentPlayer.Inventory.Display());
+            int[] equipOptions = [1, 2, 3, 4, 5];
+            int itemChoice;
+            if (CurrentPlayer.Inventory.Pouch.Count() > 0) {
+                while (!TryGetChoice(out itemChoice, equipOptions[0..CurrentPlayer.Inventory.Pouch.Count]));
+                CurrentPlayer.Inventory.EquipItem(ref CurrentPlayer, CurrentPlayer.Inventory.GetAt(itemChoice)!.Name);
+            }
+            else {
+                Console.WriteLine("Your inventory is empty!");
+            }
+            Console.ReadKey(true);
             break;
         default:
             break;
