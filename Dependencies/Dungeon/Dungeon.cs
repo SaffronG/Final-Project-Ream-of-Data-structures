@@ -28,8 +28,8 @@ public class DungeonLayout
             visited.Push(randIndex);
             if (visited.Count == Layout.Count * 2 -1)
             {
-                Hallways[lastRoom - 1, 8] = 1;
-                Hallways[8, lastRoom - 1] = 1;
+                Hallways[lastRoom - 1, Layout[Layout.Count-1].Id] = 1;
+                Hallways[Layout[Layout.Count-1].Id, lastRoom - 1] = 1;
             }
         }
     }
