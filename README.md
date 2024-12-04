@@ -1,5 +1,5 @@
 # Final-Project-Ream-of-Data-structures
-A simple console-based adventure game that implements many of the data structures often used in computer science
+A simple console-based adventure game that implements many of the data structures used in computer science
 
 <hr>
 
@@ -7,19 +7,19 @@ A simple console-based adventure game that implements many of the data structure
 > First Milestone
 - [X] Create dungeon rooms
 - [X] Make a graph structure to store the rooms and make it so the rooms can be linked in random order
-- [ ] Create challenges
-- [ ] Create a binary tree and store the challenges in them
+- [X] Create challenges
+- [X] Create a binary tree and store the challenges in them
 
 > Second Milestone
-- [ ] Create a character and skills
-- [ ] Create encounter mechanics and rules
-- [ ] Create random items
-- [ ] Implement Death Logic and zombification
+- [X] Create a character and skills
+- [X] Create encounter mechanics and rules
+- [X] Create random items
+- [X] Implement Death Logic and zombification
 
 > Third Milestone
-- [ ] Create UI so the user can interact with the game
-- [ ] Create a treasure room
-- [ ] Create treasure types
+- [X] Create UI so the user can interact with the game
+- [X] Create a treasure room
+- [X] Create treasure types
 - [ ] ( EXTRA ) Add a final boss room
 - [ ] ( EXTRA ) Add a marathon mode to the game
-- [ ] ( EXTRA ) Implement actual 2d graphics
+- [X] ( EXTRA ) Implement actual 2d graphics

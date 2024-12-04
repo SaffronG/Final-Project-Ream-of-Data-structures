@@ -3,6 +3,7 @@ namespace Dependencies.Monster;
 public class GelatinousCube : IMonster
 {
     public int Hp { get; set; }
+    public string Name { get; set; } = "Gelatinous Cube";
     public float Accuracy { get; set; }
     public int MinDamage { get; set; }
     public int MaxDamage { get; set; }
@@ -13,12 +14,13 @@ public class GelatinousCube : IMonster
         Accuracy = 0.25f;
         MinDamage = 10;
         MaxDamage = 20;
+        Hp = 40;
     }
     public int DealDamage() {
         var rand = new Random();
         var DieRoll = rand.Next(1,100);
 
-        if (Accuracy * 100 <= DieRoll) {
+        if (Accuracy * 100 >= DieRoll) {
             Console.WriteLine("The attack hit!");
             return rand.Next(MinDamage, MaxDamage+1);
         }

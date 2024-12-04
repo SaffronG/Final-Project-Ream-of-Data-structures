@@ -10,4 +10,5 @@ public interface IRoom
     public RoomType Type { get; }
     public abstract string Display();
     public bool ContainsPlayer { get; set; }
+    public IItem? Treasure { get; set; }
 }
