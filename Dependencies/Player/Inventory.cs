@@ -20,11 +20,21 @@ public class Inventory(int Max = 5) {
         foreach (var storedItem in Pouch) if (storedItem.Name == item) return true;
         return false;
     }
-    public bool UseItem(string item) {
+    public IItem? GetAt(int index) {
+        int i = 1;
+        foreach (var item in Pouch) {
+            if (i == index) return item;
+        }
+        return null;
+    }
+    public bool UseItem(ref Player player, string item) {
         Queue<IItem> tempPouch = new();
         bool exists = false;
         foreach (var storedItem in Pouch) {
-            if (storedItem.Name == item) exists = true;
+            if (storedItem.Name == item && !exists) {
+                exists = true;
+                storedItem.Effect(player);
+            }
             else tempPouch.Enqueue(storedItem);
         }
         Pouch = tempPouch;
@@ -32,8 +42,10 @@ public class Inventory(int Max = 5) {
     }
     public string Display() {
         StringBuilder inventoryContents = new();
+        int count = 0;
         foreach (var item in Pouch) {
-            inventoryContents.Append($"{item.Name}: {item.Description}\n\n");
+            count++;
+            inventoryContents.Append($" {count}) {item.Name}: {item.Description}\n\n");
         }
         return inventoryContents.ToString();
     }

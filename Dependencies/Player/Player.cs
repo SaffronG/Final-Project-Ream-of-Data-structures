@@ -14,7 +14,6 @@ public class Player(string Name, int Strength, int Intelligence, int Dexterity, 
     public ushort Location = Location;
     public IItem? Weapon { get; set; } = Weapon;
     public Inventory Inventory = new();
-    public bool UseItem(string item) => Inventory.UseItem(item);
     public int DealDamage() {
         int Damage;
         float attackAccuracy = Accuracy;
