@@ -43,6 +43,15 @@ public class DungeonLayout
         while(!TryTraverse(availablePaths, playerLocation, out playerLocation))
             Console.WriteLine("That is not a valid room choice!");
     }
+    public void AutoTraverse(ref ushort playerLocation, ref Challenges challenges)
+    {
+        challenges.Insert(playerLocation, challenges.Head);
+        List<ushort> availablePaths = [];
+        for (ushort i = 0; i < (ushort) Hallways.GetLength(0); i++)
+            if (Hallways[playerLocation-1, i] != 0)
+                availablePaths.Add((ushort) (i+1));
+        challenges.FindNext(playerLocation, availablePaths);
+    }
 
     private static bool TryTraverse(List<ushort> paths, ushort playerLocation, out ushort selection)
     {

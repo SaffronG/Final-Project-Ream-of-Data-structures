@@ -3,18 +3,11 @@ using Dependencies.Player;
 using Dependencies.Monster;
 // SETUP GAME LOGIC
 AsciiArt art = new();
-IRoom[] rooms = [
-    new Empty(2),
-    new TreasureRoom(3, "Sword", new MagicSword()),
-    new Trap(4, TrapType.Flame) { Enemy = new GelatinousCube() },
-    new Trap(4, TrapType.Flame),
-    new TreasureRoom(3, "Sword", new MagicSword()),
-    new Trap(4, TrapType.Flame) { Enemy = new Zombie() },
-    new Empty(2),
-    ];
 
 GameLoop:
+IRoom[] rooms = GenerateRooms(10);
 bool isAlive = true;
+Challenges challenges = new();
 Console.Clear();
 Console.Write("What is your name, brave hero? ");
 string name = Console.ReadLine()!;
@@ -67,7 +60,10 @@ void UiHandler(int input)
     switch (input)
     {
         case 1:
-            TombOfAnihilation.Traverse(ref CurrentPlayer.Location);
+            if (autoPlay)
+                TombOfAnihilation.AutoTraverse(ref CurrentPlayer.Location, ref challenges);
+            else
+                TombOfAnihilation.Traverse(ref CurrentPlayer.Location);
             break;
         case 2:
             var item = TombOfAnihilation.Layout[CurrentPlayer.Location].Treasure;
@@ -201,4 +197,22 @@ bool Battle(ref Player player, IMonster? monster) {
         }
     }
     return false;
+}
+
+IRoom[] GenerateRooms(int quantity) {
+    List<IRoom> rooms = [];
+    List<IMonster> monsters = [new GelatinousCube(), new Zombie()];
+    List<IItem> items = [new HealthPotion(), new MagicSword()];
+    float MonsterChance = .372f; // Added by Matt
+    Random rand = new();
+    List<IRoom> options = [new Empty(2), new TreasureRoom(3, "Sword", new MagicSword()), new Trap(4, TrapType.Flame) { Enemy = new GelatinousCube() }, new Trap(4, TrapType.Boulder), new TreasureRoom(3, "Sword", new MagicSword()), new Trap(4, TrapType.Snake) { Enemy = new Zombie() }, new Empty(2)];
+    for (int i = 1; i <= quantity; i++) {
+        IRoom room = options[rand.Next(0,options.Count)];
+        if (rand.Next(0,100) < MonsterChance*100)
+            room.Enemy = monsters[rand.Next(0,1)];
+        if (room.Type == RoomType.Treasure)
+            room.Treasure = items[rand.Next(0,1)];
+        rooms.Add(room);
+    }
+    return [.. rooms];
 }
