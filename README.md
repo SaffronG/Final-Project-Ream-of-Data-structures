@@ -24,6 +24,6 @@ A simple console-based adventure game that implements many of the data structure
 
 > Final Milestone
 - [ ] Add Trap Effects
-- [ ] Finish the Challenges Binary Tree Tree
-- [ ] Randomize Room creation, item population, and monster spawning
+- [x] Finish the Challenges Binary Tree Tree
+- [x] Randomize Room creation, item population, and monster spawning
 - [ ] ( EXTRA ) Add a final boss room
