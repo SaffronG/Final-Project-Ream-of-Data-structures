@@ -19,9 +19,6 @@ while (!TryGetChoice(out confirm, 1, 2) || confirm != 1)
     name = Console.ReadLine()!;
     Console.Write("Are you sure that is correct? (Y for 1, N for 2) ");
 }
-Console.Write("Would you like to enable Auto Play mode (This will choose the easiest path automatically)? (Y for 1, N for 2) ");
-while (!TryGetChoice(out confirm, 1, 2)) Console.Write("Invalid input, try again! ");
-bool autoPlay = confirm == 1;
 Console.WriteLine($"Very well then, we pray for your safe return {name}");
 
 Player CurrentPlayer = new(name, 10, 10, 10, .9f);
@@ -60,10 +57,7 @@ void UiHandler(int input)
     switch (input)
     {
         case 1:
-            if (autoPlay)
-                TombOfAnihilation.AutoTraverse(ref CurrentPlayer.Location, ref challenges);
-            else
-                TombOfAnihilation.Traverse(ref CurrentPlayer.Location);
+            TombOfAnihilation.Traverse(ref CurrentPlayer.Location);
             break;
         case 2:
             var item = TombOfAnihilation.Layout[CurrentPlayer.Location].Treasure;
@@ -148,7 +142,9 @@ bool Battle(ref Player player, IMonster? monster) {
             TryGetChoice(out int choice, 1, 2, 3);
             switch (choice) {
                 case 1:
-                    monster!.Hp -= player.DealDamage();
+                    int damageDealt = player.DealDamage();
+                    monster!.Hp -= damageDealt;
+                    Console.WriteLine($"You dealt {damageDealt} damage!");
                     Console.ReadKey(true);
                     Console.Clear();
                     continue;
