@@ -4,10 +4,6 @@ using Dependencies.Monster;
 // SETUP GAME LOGIC
 AsciiArt art = new();
 
-GameLoop:
-IRoom[] rooms = GenerateRooms(10);
-bool isAlive = true;
-Challenges challenges = new();
 Console.Clear();
 Console.Write("What is your name, brave hero? ");
 string name = Console.ReadLine()!;
@@ -19,6 +15,10 @@ while (!TryGetChoice(out confirm, 1, 2) || confirm != 1)
     name = Console.ReadLine()!;
     Console.Write("Are you sure that is correct? (Y for 1, N for 2) ");
 }
+GameLoop:
+IRoom[] rooms = GenerateRooms(10);
+bool isAlive = true;
+Challenges challenges = new();
 Console.WriteLine($"Very well then, we pray for your safe return {name}");
 
 Player CurrentPlayer = new(name, 10, 10, 10, .9f);
@@ -197,7 +197,7 @@ bool Battle(ref Player player, IMonster? monster) {
 
 IRoom[] GenerateRooms(int quantity) {
     List<IRoom> rooms = [];
-    List<IMonster> monsters = [new GelatinousCube(), new Zombie()];
+    List<IMonster> monsters = [new GelatinousCube(), new Zombie(), new Dragon()];
     List<IItem> items = [new HealthPotion(), new MagicSword()];
     float MonsterChance = .372f; // Added by Matt
     Random rand = new();
